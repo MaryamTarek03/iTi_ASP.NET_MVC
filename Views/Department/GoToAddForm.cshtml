@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form action="/Department/AddData">
+    <center>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <input type="number" class="form-control" id="Id" name="Id" placeholder="Enter department ID">
+        </div>
+        <p></p>
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" name="Name" id="Name" placeholder="Enter department name">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <p></p>
+            <label for="inputState">Manager</label>
+            <select id="inputState" name="ManagerSSN" class="form-control">
+                @foreach (Employee item in Model)
+                {
+                    <option value="@item.SSN">@item.FirstName @item.LastName</option>
+                }
+            </select>
+        </div>
+
+    </div>
+    <p></p>
+    <button type="submit" class="btn btn-primary">Add</button>
+    </center>
+</form>

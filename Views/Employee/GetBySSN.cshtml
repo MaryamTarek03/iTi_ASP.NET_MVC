@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Employee
+<center>
+
+<div class="card" style="width: 18rem;" >
+    <div class="card-body">
+        <h5 class="card-title">@Model.FirstName @Model.LastName</h5>
+        <h6 class="card-subtitle">@Model.SSN</h6>
+        <p class="card-text"></p>
+        <p class="card-text">
+            Salary: @Model.Salary</p>
+        <p class="card-text">Address: @Model.Address</p>
+        <p class="card-text">Department: @Model.Department?.Name</p>
+        <a href="/Employee/GetAll" class="card-link">Go back</a>
+    </div>
+    </div>
+</center>

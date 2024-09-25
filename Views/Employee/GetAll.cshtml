@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Employees";
+}
+@model List<Employee>
+
+    <div>
+        <center>
+            <h1>Our Employees</h1>
+        </center>
+    </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">SSN</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Address</th>
+            <th scope="col">Birth Date</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Department</th>
+            <th scope="col">Supervisor Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row"><a class="row-button" href="/Employee/GetBySSN/@item.SSN">@item.SSN</a></th>
+                <td>@item.FirstName @item.MINIT. @item.LastName</td>
+                <td>@item.Salary</td>
+                <td>@item.Address</td>
+                <td>@item.BirthDate</td>
+                @if (@item.Gender == 'F') 
+                {
+                    <td>Female</td>
+                }
+                @if (@item.Gender != 'F')
+                {
+                    <td>Male</td>
+                }
+                <td>@item.Department?.Name</td>
+                <td>@item.Supervisor?.FirstName @item.Supervisor?.LastName</td>
+            </tr>
+        }
+    </tbody>
+</table>

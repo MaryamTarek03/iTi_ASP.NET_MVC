@@ -31,11 +31,10 @@ namespace iTi_day_17_lab.Controllers
             return View(employees);
         }
 
-        public IActionResult AddData (int id, string name, string ManagerSSN)
+        public IActionResult AddData (string name, string ManagerSSN)
         {
             Department department = new Department()
             {
-                Id = id,
                 Name = name,
                 ManagerSSN = ManagerSSN,
                 ManagerStartDate = DateTime.UtcNow,

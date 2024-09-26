@@ -1,0 +1,51 @@
+﻿@using iTi_day_17_lab.Utils
+@using iTi_day_17_lab.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Dependent
+<form asp-controller="@ControllerNames.Employee" asp-action="@ActionNames.SaveData">
+    <center>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <input class="form-control" asp-for="Name" placeholder="SSN">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <p></p>
+        <div class="form-group col-md-6">
+                <input class="form-control" asp-for="Relationship" placeholder="First name">
+                <span asp-validation-for="Relationship" class="text-danger"></span>
+        </div>
+        <p></p>
+        <div class="form-group col-md-6">
+                <input class="form-control" asp-for="BirthDate" placeholder="Birth date">
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <p></p>
+            <label for="inputState">Gender</label>
+            <select id="inputState" asp-for="Gender" class="form-control">
+                    <option value="F">Female</option>
+                    <option value="M">Male</option>
+            </select>
+            <p></p>
+            <label for="inputState">Supervisor</label>
+                <select asp-for="EmployeeSSN" id="inputState" class="form-control">
+                <option value= null></option>
+                @foreach (Employee item in ViewBag.Employees)
+                {
+                    <option value="@item.SSN">@item.FirstName @item.LastName</option>
+                }
+            </select>
+        </div>
+
+    </div>
+    <p></p>
+    <button type="submit" class="btn btn-primary">Add</button>
+    </center>
+</form>

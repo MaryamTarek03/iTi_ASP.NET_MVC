@@ -1,4 +1,5 @@
 ﻿using iTi_day_17_lab.Models;
+using iTi_day_17_lab.Utils;
 using iTi_day_17_lab.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,51 +21,59 @@ namespace iTi_day_17_lab.Controllers
             List<Employee> employees = context.Employees.OrderBy(e => e.FirstName).ToList();
             return View(employees);
         }
-        public IActionResult GetBySSN(string id)
+        public IActionResult GetById(string id)
         {
             Employee? employee 
                 = context.Employees
                 .Where(e => e.SSN == id)
-                .First();
+                .SingleOrDefault();
             return View(employee);
         }
-        public IActionResult GoToAddForm()
+        public IActionResult AddForm()
         {
             List<Department> departments = context.Departments.ToList();
             List<Employee> employees = context.Employees.ToList();
             EmployeeVM employeeVM = new EmployeeVM(departments, employees);
-            return View(employeeVM);
+            ViewBag.EmployeeAddVM = employeeVM;
+            return View(new Employee());
+        }
+        public IActionResult EditForm(string id)
+        {
+            List<Department> departments = context.Departments.ToList();
+            List<Employee> employees = context.Employees.ToList();
+            EmployeeVM employeeVM = new EmployeeVM(departments, employees);
+            Employee? employee
+                = context.Employees
+                .Where(e => e.SSN == id)
+                .SingleOrDefault();
+            ViewBag.EmployeeVM = employeeVM;
+            return View(employee);
         }
 
-        public IActionResult AddData(
-            string ssn, 
-            string firstName, 
-            string MINIT, 
-            string lastName, 
-            string address, 
-            decimal salary, 
-            DateTime birthDate, 
-            string supervisorSSN, 
-            char gender,
-            int departmentId)
+        public IActionResult DeleteData(string id)
         {
-            DateTime utcBirthDate = birthDate.ToUniversalTime();
-            Employee employee = new Employee()
-            {
-                SSN = ssn,
-                FirstName = firstName,
-                MINIT = MINIT,
-                LastName = lastName,
-                Address = address,
-                Salary = salary,
-                Gender = gender,
-                BirthDate = utcBirthDate,
-                SupervisorSSN = supervisorSSN,
-                DepartmentId = departmentId
-            };
-            context.Employees.Add(employee);
+            Employee? employee 
+                = context.Employees
+                .Where(e => e.SSN == id)
+                .SingleOrDefault();
+            context.Employees.Remove(employee);
             context.SaveChanges();
-            return RedirectToAction("GetAll");
+            return RedirectToAction(ActionNames.GetAll);
+        }
+
+        public IActionResult SaveData(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Employees.Add(employee);
+                context.SaveChanges();
+                return RedirectToAction(ActionNames.GetAll);
+            }
+            List<Department> departments = context.Departments.ToList();
+            List<Employee> employees = context.Employees.ToList();
+            EmployeeVM employeeVM = new EmployeeVM(departments, employees);
+            ViewBag.EmployeeAddVM = employeeVM;
+            return View(@ActionNames.AddForm);
         }
     }
 }

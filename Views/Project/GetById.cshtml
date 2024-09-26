@@ -1,0 +1,21 @@
+﻿@using iTi_day_17_lab.Utils
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Project
+<center>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Id. @Model.Name</h5>
+            <h6 class="card-subtitle">@Model.Department?.Name</h6>
+            <p class="card-text">@Model.Location</p>
+            <a href="/Project/GetAll" class="card-link">Go back</a>
+        </div>
+    </div>
+    <div>
+        <a href="#">Edit</a>
+        <a asp-controller="@ControllerNames.Project" asp-action="@ActionNames.DeleteData" asp-route-id="@Model.Id">Delete</a>
+    </div>
+</center>

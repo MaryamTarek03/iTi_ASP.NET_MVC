@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using iTi_day_17_lab.Models;
+using iTi_day_17_lab.Utils;
 
 namespace iTi_day_17_lab.Controllers
 {
@@ -25,13 +26,24 @@ namespace iTi_day_17_lab.Controllers
             return View(department);
         }
 
-        public IActionResult GoToAddForm()
+        public IActionResult AddForm()
         {
             List<Employee> employees = context.Employees.ToList();
             return View(employees);
         }
 
-        public IActionResult AddData (string name, string ManagerSSN)
+        public IActionResult DeleteData(int id)
+        {
+            Department? department
+                = context.Departments
+                .Where(d => d.Id == id)
+                .SingleOrDefault();
+            context.Departments.Remove(department);
+            context.SaveChanges();
+            return RedirectToAction(ActionNames.GetAll);
+        }
+
+        public IActionResult SaveData (string name, string ManagerSSN)
         {
             Department department = new Department()
             {
@@ -41,7 +53,7 @@ namespace iTi_day_17_lab.Controllers
             };
             context.Departments.Add(department);
             context.SaveChanges();
-            return RedirectToAction("GetAll");
+            return RedirectToAction(ActionNames.GetAll);
         }
     }
 }

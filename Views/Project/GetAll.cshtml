@@ -2,13 +2,12 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewData["Title"] = "Departments";
 }
-@model List<Department>
+@model List<Project>
 
 <div>
     <center>
-        <h1>Our Departments</h1>
+        <h1>Our Projects</h1>
         <p></p>
     </center>
 </div>
@@ -17,16 +16,18 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">Manager</th>
+            <th scope="col">Location</th>
+            <th scope="col">Department</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <th scope="row"><a class="row-button" href="/Department/GetById/@item.Id">@item.Id</a></th>
+                <th scope="row"><a class="row-button" href="/Project/GetById/@item.Id">@item.Id</a></th>
                 <td>@item.Name</td>
-                <td>@item.Manager?.FirstName @item.Manager?.MINIT. @item.Manager?.LastName</td>
+                <td>@item.Location</td>
+                <td>@item.Department?.Name</td>
             </tr>
         }
     </tbody>

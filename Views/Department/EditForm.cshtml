@@ -1,0 +1,36 @@
+﻿@using iTi_day_17_lab.Utils
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Department
+<form asp-controller="@ControllerNames.Department" asp-action="@ActionNames.UpdateData">
+    <center>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input class="form-control" asp-for="Id" hidden>
+            </div>
+            <p></p>
+            <div class="form-group col-md-6">
+                <input class="form-control" asp-for="Name" placeholder="Enter department name">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p></p>
+                <label for="inputState">Manager</label>
+                <select asp-for="ManagerSSN" class="form-control">
+                    @foreach (Employee item in ViewBag.Employees)
+                    {
+                        <option value="@item.SSN">@item.FirstName @item.LastName</option>
+                    }
+                </select>
+            </div>
+
+        </div>
+        <p></p>
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </center>
+</form>

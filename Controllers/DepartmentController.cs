@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using iTi_day_17_lab.Models;
 using iTi_day_17_lab.Utils;
+using iTi_day_17_lab.ViewModels;
 
 namespace iTi_day_17_lab.Controllers
 {
@@ -17,7 +18,7 @@ namespace iTi_day_17_lab.Controllers
         }
         public IActionResult GetAll()
         {
-            List<Department> departments = context.Departments.ToList();
+            List<Department> departments = context.Departments.OrderBy(d => d.Id).ToList();
             return View(departments);
         }
         public IActionResult GetById(int id)
@@ -30,6 +31,25 @@ namespace iTi_day_17_lab.Controllers
         {
             List<Employee> employees = context.Employees.ToList();
             return View(employees);
+        }
+
+        public IActionResult EditForm(int id)
+        {
+            Department? department = context.Departments.SingleOrDefault(d => d.Id == id);
+            List<Employee> employees = context.Employees.ToList();
+            ViewBag.Employees = employees;
+            return View(department);
+        }
+
+        public IActionResult UpdateData(Department department)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Departments.Update(department);
+                context.SaveChanges();
+                return RedirectToAction(ActionNames.GetAll);
+            }
+            return RedirectToAction(ActionNames.EditForm, new { id = department.Id });
         }
 
         public IActionResult DeleteData(int id)

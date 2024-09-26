@@ -19,7 +19,7 @@
         </div>
     </div>
     <div>
-        <a href="#">Edit</a>
+        <a asp-controller="@ControllerNames.Department" asp-action="@ActionNames.EditForm" asp-route-id="@Model.Id">Edit</a>
         <a asp-controller="@ControllerNames.Department" asp-action="@ActionNames.DeleteData" asp-route-id="@Model.Id">Delete</a>
     </div>
 </center>

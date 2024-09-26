@@ -6,6 +6,9 @@
 }
 @model Employee
 <center>
+    <p></p>
+    <h1>Employee's Details</h1>
+    <p></p>
     <div class="card" style="width: 18rem;" >
         <div class="card-body">
             <h5 class="card-title">@Model.FirstName @Model.LastName</h5>
@@ -21,4 +24,35 @@
         <a asp-controller="@ControllerNames.Employee" asp-action="@ActionNames.EditForm" asp-route-id="@Model.SSN">Edit</a>
         <a asp-controller="@ControllerNames.Employee" asp-action="@ActionNames.DeleteData" asp-route-id="@Model.SSN">Delete</a>
     </div>
+    <p></p>
+    <h1>Employee's Dependents</h1>
+    <p></p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Full Name</th>
+                <th scope="col">Birth Date</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Relationship</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Dependents)
+            {
+                <tr>
+                    <th scope="row">@item.Name</th>
+                    <td>@item.BirthDate</td>
+                    @if (@item.Gender == 'F')
+                    {
+                        <td>Female</td>
+                    }
+                    @if (@item.Gender != 'F')
+                    {
+                        <td>Male</td>
+                    }
+                    <td>@item.Relationship</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </center>

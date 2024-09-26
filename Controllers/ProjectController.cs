@@ -1,5 +1,6 @@
 ﻿using iTi_day_17_lab.Models;
 using iTi_day_17_lab.Utils;
+using iTi_day_17_lab.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iTi_day_17_lab.Controllers
@@ -37,6 +38,25 @@ namespace iTi_day_17_lab.Controllers
             _firmContext.Projects.Remove(project);
             _firmContext.SaveChanges();
             return RedirectToAction(ActionNames.GetAll);
+        }
+
+        public IActionResult EditForm(int id)
+        {
+            Project project = _firmContext.Projects.Single(p => p.Id == id);
+            List<Department>? departments = _firmContext.Departments.ToList();
+            ViewBag.Departments = departments;
+            return View(project);
+        }
+
+        public IActionResult UpdateData(Project project)
+        {
+            if (ModelState.IsValid)
+            {
+                _firmContext.Projects.Update(project);
+                _firmContext.SaveChanges();
+                return RedirectToAction(ActionNames.GetAll);
+            }
+            return RedirectToAction(ActionNames.EditForm, new { id = project.Id });
         }
     }
 }

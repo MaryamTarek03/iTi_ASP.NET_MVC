@@ -10,32 +10,32 @@
     <center>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <input class="form-control" asp-for="SSN" placeholder="First name" hidden value="@Model.SSN">
+                <input class="form-control" asp-for="SSN" placeholder="First name" hidden>
                 <span asp-validation-for="SSN" class="text-danger"></span>
             </div>
             <p></p>
             <div class="form-group col-md-6">
-                <input class="form-control" asp-for="FirstName" placeholder="First name" value="@Model.FirstName">
+                <input class="form-control" asp-for="FirstName" placeholder="First name">
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <p></p>
             <div class="form-group col-md-6">
-                <input class="form-control" asp-for="MINIT" placeholder="Middle name initial" value="@Model.MINIT">
+                <input class="form-control" asp-for="MINIT" placeholder="Middle name initial">
                 <span asp-validation-for="MINIT" class="text-danger"></span>
             </div>
             <p></p>
             <div class="form-group col-md-6">
-                <input class="form-control" asp-for="LastName" placeholder="Last Name" value="@Model.LastName">
+                <input class="form-control" asp-for="LastName" placeholder="Last Name">
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <p></p>
             <div class="form-group col-md-6">
-                <input class="form-control" asp-for="Address" placeholder="Address" value="@Model.Address">
+                <input class="form-control" asp-for="Address" placeholder="Address">
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <p></p>
             <div class="form-group col-md-6">
-                <input class="form-control" asp-for="Salary" placeholder="Salary" value="@Model.Salary">
+                <input class="form-control" asp-for="Salary" placeholder="Salary">
                 <span asp-validation-for="Salary" class="text-danger"></span>
             </div>
             <p></p>
@@ -50,16 +50,8 @@
                 <p></p>
                 <label for="inputState">Gender</label>
                 <select id="inputState" asp-for="Gender" class="form-control">
-                    @if(Model.Gender == 'F')
-                    {
-                        <option value="F" selected>Female</option>
-                        <option value="M">Male</option>
-                    }
-                    else
-                    {
-                        <option value="F">Female</option>
-                        <option value="M" selected>Male</option>
-                    }
+                    <option value="F" selected>Female</option>
+                    <option value="M">Male</option>
                 </select>
                 <p></p>
                 <label for="inputState">Supervisor</label>
@@ -67,14 +59,7 @@
                     <option value=null></option>
                     @foreach (Employee item in ViewBag.EmployeeUpdateVM.Supervisors)
                     {
-                        if (Model.SupervisorSSN == item.SSN)
-                        {
-                            <option value="@item.SSN" selected>@item.FirstName @item.LastName</option>
-                        }
-                        else
-                        {
                             <option value="@item.SSN">@item.FirstName @item.LastName</option>
-                        }
                     }
                 </select>
                 <p></p>
@@ -82,18 +67,10 @@
                 <select asp-for="DepartmentId" class="form-control">
                     @foreach (Department item in ViewBag.EmployeeUpdateVM.Departments)
                     {
-                        if (Model.DepartmentId == item.Id)
-                        {
-                            <option value="@item.Id" selected>@item.Name</option>
-                        }
-                        else
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
+                        <option value="@item.Id">@item.Name</option>
                     }
                 </select>
             </div>
-
         </div>
         <p></p>
         <button type="submit" class="btn btn-primary">Edit</button>

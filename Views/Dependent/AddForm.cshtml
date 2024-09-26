@@ -6,16 +6,16 @@
 @{
 }
 @model Dependent
-<form asp-controller="@ControllerNames.Employee" asp-action="@ActionNames.SaveData">
+<form asp-controller="@ControllerNames.Dependent" asp-action="@ActionNames.SaveData">
     <center>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <input class="form-control" asp-for="Name" placeholder="SSN">
+            <input class="form-control" asp-for="Name" placeholder="Full Name">
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <p></p>
         <div class="form-group col-md-6">
-                <input class="form-control" asp-for="Relationship" placeholder="First name">
+                <input class="form-control" asp-for="Relationship" placeholder="Relationship">
                 <span asp-validation-for="Relationship" class="text-danger"></span>
         </div>
         <p></p>

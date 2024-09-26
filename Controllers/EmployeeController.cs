@@ -44,9 +44,8 @@ namespace iTi_day_17_lab.Controllers
             EmployeeVM employeeVM = new EmployeeVM(departments, employees);
             Employee? employee
                 = context.Employees
-                .Where(e => e.SSN == id)
-                .SingleOrDefault();
-            ViewBag.EmployeeVM = employeeVM;
+                .SingleOrDefault(e => e.SSN == id);
+            ViewBag.EmployeeUpdateVM = employeeVM;
             return View(employee);
         }
 
@@ -61,10 +60,28 @@ namespace iTi_day_17_lab.Controllers
             return RedirectToAction(ActionNames.GetAll);
         }
 
+        public IActionResult UpdateData(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                employee.BirthDate = employee.BirthDate.ToUniversalTime();
+                context.Employees.Update(employee);
+                context.SaveChanges();
+                return RedirectToAction(ActionNames.GetAll);
+            }
+            return RedirectToAction(ActionNames.EditForm, new { id = employee.SSN });
+            //List<Department> departments = context.Departments.ToList();
+            //List<Employee> employees = context.Employees.ToList();
+            //EmployeeVM employeeVM = new EmployeeVM(departments, employees);
+            //ViewBag.EmployeeUpdateVM = employeeVM;
+            //return View(@ActionNames.EditForm, new {id = employee.SSN});
+        }
+
         public IActionResult SaveData(Employee employee)
         {
             if (ModelState.IsValid)
             {
+                employee.BirthDate = employee.BirthDate.ToUniversalTime();
                 context.Employees.Add(employee);
                 context.SaveChanges();
                 return RedirectToAction(ActionNames.GetAll);

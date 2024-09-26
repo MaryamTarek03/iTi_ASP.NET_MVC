@@ -6,10 +6,6 @@
 @{
 }
 @model Employee
-@if (ViewBag.EmployeeAddVM != null)
-{
-    
-
 <form asp-controller="@ControllerNames.Employee" asp-action="@ActionNames.SaveData">
     <center>
     <div class="form-row">
@@ -81,8 +77,4 @@
     <button type="submit" class="btn btn-primary">Add</button>
     </center>
 </form>
-}
-else
-{
-    <p>EmployeeVM is not available.</p>
 }

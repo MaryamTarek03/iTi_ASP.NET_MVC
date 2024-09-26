@@ -25,21 +25,20 @@ namespace iTi_day_17_lab.Controllers
         {
             List<Employee> employees = context.Employees.ToList();
             ViewBag.Employees = employees;
-            return View(employees);
+            return View();
         }
-        public IActionResult SaveData(Employee employee)
+        public IActionResult SaveData(Dependent dependent)
         {
             if (ModelState.IsValid)
             {
-                context.Employees.Add(employee);
+                dependent.BirthDate = dependent.BirthDate.ToUniversalTime();
+                context.Dependents.Add(dependent);
                 context.SaveChanges();
                 return RedirectToAction(ActionNames.GetAll);
             }
-            List<Department> departments = context.Departments.ToList();
             List<Employee> employees = context.Employees.ToList();
-            EmployeeVM employeeVM = new EmployeeVM(departments, employees);
-            ViewBag.EmployeeAddVM = employeeVM;
-            return View(@ActionNames.AddForm);
+            ViewBag.Employees = employees;
+            return View(ActionNames.AddForm);
         }
     }
 }

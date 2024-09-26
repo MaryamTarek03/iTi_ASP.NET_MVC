@@ -18,7 +18,7 @@
         </div>
     </div>
     <div>
-        <a asp-controller="@ControllerNames.Employee" asp-action="@ActionNames.EditForm">Edit</a>
+        <a asp-controller="@ControllerNames.Employee" asp-action="@ActionNames.EditForm" asp-route-id="@Model.SSN">Edit</a>
         <a asp-controller="@ControllerNames.Employee" asp-action="@ActionNames.DeleteData" asp-route-id="@Model.SSN">Delete</a>
     </div>
 </center>

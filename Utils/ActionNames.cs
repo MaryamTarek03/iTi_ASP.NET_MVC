@@ -7,6 +7,7 @@
         public static string AddForm = "AddForm";
         public static string EditForm = "EditForm";
         public static string SaveData = "SaveData";
+        public static string UpdateData = "UpdateData";
         public static string DeleteData = "DeleteData";
     }
 }

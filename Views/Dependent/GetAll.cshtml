@@ -30,8 +30,8 @@
                 <th scope="row">
                     <a class="row-button" asp-controller="@ControllerNames.Employee" asp-action="@ActionNames.GetById" asp-route-id="@item.EmployeeSSN">
                         @item.Employee?.FirstName @item.Employee?.MINIT @item.Employee?.LastName
-                        </a>
-                        </th>
+                    </a>
+                </th>
                 <td>@item.Name</td>
                 <td>@item.BirthDate</td>
                 @if (@item.Gender == 'F') 

@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using iTi_day_17_lab.Models.Validations;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace iTi_day_17_lab.Models
+namespace iTi_day_17_lab.Models.FirmDatabase
 {
     public class Employee
     {
@@ -11,25 +13,28 @@ namespace iTi_day_17_lab.Models
         [Required]
         [MinLength(3, ErrorMessage = "Name must be at least 3 characters")]
         [MaxLength(20, ErrorMessage = "Name must be at most 10 characters")]
+        [UniqueFirstName]
         public string FirstName { get; set; } = string.Empty;
         [Required]
         [MinLength(3, ErrorMessage = "Name must be at least 3 characters")]
         [MaxLength(20, ErrorMessage = "Name must be at most 10 characters")]
+        [UniqueLastName]
         public string LastName { get; set; } = string.Empty;
-        public string Address {  get; set; } = string.Empty;
-        public char Gender {  get; set; }
+        public string Address { get; set; } = string.Empty;
+        public char Gender { get; set; }
         [Required]
         [MinLength(1, ErrorMessage = "Middle initial must be 1 character only")]
         [MaxLength(1, ErrorMessage = "Middle initial must be 1 character only")]
         public string? MINIT { get; set; } = string.Empty;
         [Required(ErrorMessage = "This field is required")]
+        [Remote("IsSalaryValid", "Employee", ErrorMessage = "The salary must be between 10k & 20k")]
         public decimal Salary { get; set; }
         [Required(ErrorMessage = "This field is required")]
         public DateTime BirthDate { get; set; }
 
         [ForeignKey("Supervisor")]
         public string? SupervisorSSN { get; set; } = string.Empty;
-        public virtual Employee? Supervisor {  get; set; }
+        public virtual Employee? Supervisor { get; set; }
 
         [InverseProperty("Supervisor")]
         public virtual List<Employee>? Supervisee { get; set; }

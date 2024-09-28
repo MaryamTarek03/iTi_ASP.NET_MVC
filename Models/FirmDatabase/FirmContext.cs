@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace iTi_day_17_lab.Models
+namespace iTi_day_17_lab.Models.FirmDatabase
 {
     public class FirmContext : DbContext
     {
@@ -20,9 +20,9 @@ namespace iTi_day_17_lab.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DepartmentLocations>().HasKey(d => new { d.DepartmentId, d.Location});
-            modelBuilder.Entity<WorksOn>().HasKey(w => new { w.EmployeeSSN, w.ProjectId});
-            modelBuilder.Entity<Dependent>().HasKey(d => new { d.EmployeeSSN, d.Name});
+            modelBuilder.Entity<DepartmentLocations>().HasKey(d => new { d.DepartmentId, d.Location });
+            modelBuilder.Entity<WorksOn>().HasKey(w => new { w.EmployeeSSN, w.ProjectId });
+            modelBuilder.Entity<Dependent>().HasKey(d => new { d.EmployeeSSN, d.Name });
             base.OnModelCreating(modelBuilder);
         }
     }

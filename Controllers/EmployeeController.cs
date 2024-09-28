@@ -1,4 +1,5 @@
-﻿using iTi_day_17_lab.Models;
+﻿using iTi_day_17_lab.Interfaces;
+using iTi_day_17_lab.Models.FirmDatabase;
 using iTi_day_17_lab.Utils;
 using iTi_day_17_lab.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -7,10 +8,13 @@ namespace iTi_day_17_lab.Controllers
 {
     public class EmployeeController : Controller
     {
-        FirmContext context;
-        public EmployeeController()
+        IEmployeeRepo _employeeRepo;
+        FirmContext _firmContext;
+
+        public EmployeeController(IEmployeeRepo employeeRepo)
         {
-            context = new FirmContext();
+            _employeeRepo = employeeRepo;
+            _firmContext = new FirmContext();
         }
         public IActionResult Index()
         {
@@ -18,58 +22,49 @@ namespace iTi_day_17_lab.Controllers
         }
         public IActionResult GetAll()
         {
-            List<Employee> employees = context.Employees.OrderBy(e => e.FirstName).ToList();
+            List<Employee> employees = _employeeRepo.GetEmployeeList();
             return View(employees);
         }
         public IActionResult GetById(string id)
         {
-            Employee? employee 
-                = context.Employees
-                .Where(e => e.SSN == id)
-                .SingleOrDefault();
+            Employee? employee = _employeeRepo.GetEmployee(id);
             return View(employee);
         }
         public IActionResult AddForm()
         {
-            List<Department> departments = context.Departments.ToList();
-            List<Employee> employees = context.Employees.ToList();
+            List<Department> departments = _firmContext.Departments.ToList();
+            List<Employee> employees = _employeeRepo.GetEmployeeList();
             EmployeeVM employeeVM = new EmployeeVM(departments, employees);
             ViewBag.EmployeeAddVM = employeeVM;
             return View(new Employee());
         }
         public IActionResult EditForm(string id)
         {
-            List<Department> departments = context.Departments.ToList();
-            List<Employee> employees = context.Employees.ToList();
+            List<Department> departments = _firmContext.Departments.ToList();
+            List<Employee> employees = _employeeRepo.GetEmployeeList();
             EmployeeVM employeeVM = new EmployeeVM(departments, employees);
             Employee? employee
-                = context.Employees
-                .SingleOrDefault(e => e.SSN == id);
+                = _employeeRepo.GetEmployee(id);
             ViewBag.EmployeeUpdateVM = employeeVM;
             return View(employee);
         }
 
         public IActionResult DeleteData(string id)
         {
-            Employee? employee 
-                = context.Employees
-                .Where(e => e.SSN == id)
-                .SingleOrDefault();
-            context.Employees.Remove(employee);
-            context.SaveChanges();
+            Employee? employee = _employeeRepo.GetEmployee(id);
+            _employeeRepo.DeleteEmployee(employee);
             return RedirectToAction(ActionNames.GetAll);
         }
 
         public IActionResult UpdateData(Employee employee)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 employee.BirthDate = employee.BirthDate.ToUniversalTime();
-                context.Employees.Update(employee);
-                context.SaveChanges();
+                _employeeRepo.UpdateEmployee(employee);
                 return RedirectToAction(ActionNames.GetAll);
-            }
-            return RedirectToAction(ActionNames.EditForm, new { id = employee.SSN });
+            //}
+            //return RedirectToAction(ActionNames.EditForm, new { id = employee.SSN });
             //List<Department> departments = context.Departments.ToList();
             //List<Employee> employees = context.Employees.ToList();
             //EmployeeVM employeeVM = new EmployeeVM(departments, employees);
@@ -82,15 +77,20 @@ namespace iTi_day_17_lab.Controllers
             if (ModelState.IsValid)
             {
                 employee.BirthDate = employee.BirthDate.ToUniversalTime();
-                context.Employees.Add(employee);
-                context.SaveChanges();
+                _employeeRepo.InsertEmployee(employee);
                 return RedirectToAction(ActionNames.GetAll);
             }
-            List<Department> departments = context.Departments.ToList();
-            List<Employee> employees = context.Employees.ToList();
+            List<Department> departments = _firmContext.Departments.ToList();
+            List<Employee> employees = _employeeRepo.GetEmployeeList();
             EmployeeVM employeeVM = new EmployeeVM(departments, employees);
             ViewBag.EmployeeAddVM = employeeVM;
             return View(@ActionNames.AddForm);
+        }
+
+        public IActionResult IsSalaryValid(decimal salary)
+        {
+            if (salary >= 10000 && salary <= 20000) return Json(true);
+            return Json(false);
         }
     }
 }

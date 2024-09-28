@@ -1,3 +1,8 @@
+using iTi_day_17_lab.Interfaces;
+using iTi_day_17_lab.Models.FirmDatabase;
+using iTi_day_17_lab.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 namespace iTi_day_17_lab
 {
     public class Program
@@ -8,6 +13,7 @@ namespace iTi_day_17_lab
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();
 
             var app = builder.Build();
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace iTi_day_17_lab.Models
+namespace iTi_day_17_lab.Models.FirmDatabase
 {
     public class Department
     {

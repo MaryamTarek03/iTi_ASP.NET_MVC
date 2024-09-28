@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace iTi_day_17_lab.Models
+namespace iTi_day_17_lab.Models.FirmDatabase
 {
     public class WorksOn
     {
         [ForeignKey("Employee")]
         public string? EmployeeSSN { get; set; } = string.Empty;
-        public virtual Employee? Employee {  get; set; }
+        public virtual Employee? Employee { get; set; }
 
         [ForeignKey("Project")]
         public int? ProjectId { get; set; }

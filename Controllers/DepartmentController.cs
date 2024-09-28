@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using iTi_day_17_lab.Models;
 using iTi_day_17_lab.Utils;
 using iTi_day_17_lab.ViewModels;
+using iTi_day_17_lab.Models.FirmDatabase;
 
 namespace iTi_day_17_lab.Controllers
 {

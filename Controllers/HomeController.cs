@@ -1,4 +1,4 @@
-using iTi_day_17_lab.Models;
+using iTi_day_17_lab.Models.FirmDatabase;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
